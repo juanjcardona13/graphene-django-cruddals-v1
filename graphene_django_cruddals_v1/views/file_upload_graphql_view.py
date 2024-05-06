@@ -1,7 +1,7 @@
 """Apply multipart request spec to django"""
 import json
 
-from cruddals_django.views.graphql_views import GraphQLView
+from graphene_django_cruddals_v1.views.graphql_views import GraphQLView
 from six import iteritems
 
 

@@ -19,9 +19,9 @@ import graphene
 from graphene.utils.subclass_with_meta import SubclassWithMeta
 from graphene.utils.props import props
 from graphql import GraphQLError
-from cruddals_django.copy_graphene_django.fields import DjangoListField
+from graphene_django_cruddals_v1.copy_graphene_django.fields import DjangoListField
 
-from cruddals_django.copy_graphene_django.types import ErrorsType
+from graphene_django_cruddals_v1.copy_graphene_django.types import ErrorsType
 
 from .utils.utils import (
                     DjangoModelFormMutation, add_cruddals_model_to_request, build_class, 

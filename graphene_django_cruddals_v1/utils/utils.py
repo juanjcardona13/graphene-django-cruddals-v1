@@ -21,9 +21,9 @@ from django.forms import ModelForm as DjangoModelForm
 from graphql import GraphQLError
 
 from functools import reduce
-from cruddals_django.converter.utils import FieldPurposeConvert, convert_django_field_with_choices
-from cruddals_django.copy_graphene_django.types import ErrorType, ErrorsType
-from cruddals_django.registry.registry_global import RegistryGlobal, TypeRegistryForField, get_global_registry
+from graphene_django_cruddals_v1.converter.utils import FieldPurposeConvert, convert_django_field_with_choices
+from graphene_django_cruddals_v1.copy_graphene_django.types import ErrorType, ErrorsType
+from graphene_django_cruddals_v1.registry.registry_global import RegistryGlobal, TypeRegistryForField, get_global_registry
 from ..helpers.helpers import CruddalsRelationField, PaginatedInput, PaginationInterface, TypesMutation
 
 from collections.abc import Iterable
@@ -61,7 +61,7 @@ import re
 from text_unidecode import unidecode
 
 from graphene.types.mutation import MutationOptions
-from cruddals_django.copy_graphene_django.constants import MUTATION_ERRORS_FLAG
+from graphene_django_cruddals_v1.copy_graphene_django.constants import MUTATION_ERRORS_FLAG
 from django.core.exceptions import ValidationError
 
 
@@ -430,7 +430,7 @@ def get_name_of_model_in_different_case(model, prefix="", suffix=""):
     }
 
 def convert_model_to_paginated_object_type(model, model_as_object_type=None, extra_attrs={}, prefix_for_name="", suffix_for_name=""):
-    from cruddals_django.copy_graphene_django.fields import DjangoListField
+    from graphene_django_cruddals_v1.copy_graphene_django.fields import DjangoListField
     
     paginated_model_object_type = None
     registry = get_global_registry(f"{prefix_for_name}{suffix_for_name}")
@@ -530,7 +530,7 @@ def convert_model_to_object_type(model, extra_meta_attrs={}, extra_attrs={}, pre
         y son:
             cualquier atributo con un valor valido de tipo graphene y su función resolve
     """
-    from cruddals_django.copy_graphene_django.types import DjangoObjectType
+    from graphene_django_cruddals_v1.copy_graphene_django.types import DjangoObjectType
 
     model_object_type = None
     registry = get_global_registry(f"{prefix_for_name}{suffix_for_name}")
@@ -564,7 +564,7 @@ def convert_model_to_object_type(model, extra_meta_attrs={}, extra_attrs={}, pre
         return model_object_type
 
 def converter_pk_field(pk_field, registry, type_input):
-    from cruddals_django.converter.converter_input import convert_django_field_to_input
+    from graphene_django_cruddals_v1.converter.converter_input import convert_django_field_to_input
     return convert_django_field_to_input(pk_field, registry, type_input)
 
 def get_type_and_name_input(purpose, type_mutation, singular_camel_case_name):
@@ -836,7 +836,7 @@ def get_paginated_arg(kw={}):
         return {"paginated": graphene.Argument(**default_values_for_paginated)}
 
 def transform_args_type_relation(model: DjangoModel, args_final, registry: RegistryGlobal, type_mutation_input):
-    from cruddals_django.converter.converter_input_relation import convert_relation_field_to_input
+    from graphene_django_cruddals_v1.converter.converter_input_relation import convert_relation_field_to_input
 
     for arg, value in args_final.items():
         if isinstance(value, CruddalsRelationField):
@@ -1099,7 +1099,7 @@ class ClientIDMutation(graphene.Mutation):
         return cls.mutate_and_get_payload(root, info, input, **kwargs)
 
 class DjangoModelFormMutation(ClientIDMutation):
-    from cruddals_django.copy_graphene_django.types import ErrorsType
+    from graphene_django_cruddals_v1.copy_graphene_django.types import ErrorsType
 
     class Meta:
         abstract = True

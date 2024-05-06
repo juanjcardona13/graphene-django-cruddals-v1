@@ -6,7 +6,7 @@ from django.db.models.query import QuerySet
 from graphene import NonNull
 from graphene.types import Field, List
 
-from cruddals_django.utils.utils import convert_model_to_paginated_object_type, maybe_queryset, order_by_input_to_args, paginate_queryset, where_input_to_Q
+from graphene_django_cruddals_v1.utils.utils import convert_model_to_paginated_object_type, maybe_queryset, order_by_input_to_args, paginate_queryset, where_input_to_Q
 
 
 

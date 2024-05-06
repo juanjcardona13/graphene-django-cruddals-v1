@@ -1,15 +1,15 @@
 from functools import partial, singledispatch
 
-from cruddals_django.converter.utils import get_django_field_description
-from cruddals_django.registry.registry_global import RegistryGlobal
-from cruddals_django.types.scalars.Binary import Binary
-from cruddals_django.types.scalars.Duration import Duration
-from cruddals_django.types.scalars.Email import Email
-from cruddals_django.types.scalars.IP import IP
-from cruddals_django.types.scalars.IPv4 import IPv4
-from cruddals_django.types.scalars.PositiveInt import PositiveInt
-from cruddals_django.types.scalars.Slug import Slug
-from cruddals_django.types.scalars.URL import URL
+from graphene_django_cruddals_v1.converter.utils import get_django_field_description
+from graphene_django_cruddals_v1.registry.registry_global import RegistryGlobal
+from graphene_django_cruddals_v1.types.scalars.Binary import Binary
+from graphene_django_cruddals_v1.types.scalars.Duration import Duration
+from graphene_django_cruddals_v1.types.scalars.Email import Email
+from graphene_django_cruddals_v1.types.scalars.IP import IP
+from graphene_django_cruddals_v1.types.scalars.IPv4 import IPv4
+from graphene_django_cruddals_v1.types.scalars.PositiveInt import PositiveInt
+from graphene_django_cruddals_v1.types.scalars.Slug import Slug
+from graphene_django_cruddals_v1.types.scalars.URL import URL
 
 from django.db import models
 from django.utils.functional import Promise
@@ -271,8 +271,8 @@ def convert_field_to_list_or_connection(field, registry:RegistryGlobal=None):
     model = field.related_model
 
     def dynamic_type():
-        from cruddals_django.copy_graphene_django.fields import DjangoPaginatedField, DjangoListField
-        from cruddals_django.utils.utils import get_order_by_arg, get_paginated_arg, get_where_arg
+        from graphene_django_cruddals_v1.copy_graphene_django.fields import DjangoPaginatedField, DjangoListField
+        from graphene_django_cruddals_v1.utils.utils import get_order_by_arg, get_paginated_arg, get_where_arg
         
         _type = None
         registries_for_model = registry.get_registry_for_model(model)

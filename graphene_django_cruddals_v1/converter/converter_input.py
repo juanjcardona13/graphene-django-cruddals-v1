@@ -1,20 +1,20 @@
 from collections import OrderedDict
 from enum import Enum
 from functools import singledispatch
-from cruddals_django.converter.utils import get_django_field_description
+from graphene_django_cruddals_v1.converter.utils import get_django_field_description
 
 
-from cruddals_django.registry.registry_global import RegistryGlobal
-from cruddals_django.types.scalars.Binary import Binary
-from cruddals_django.types.scalars.OrderEnum import OrderEnum
-from cruddals_django.types.scalars.Upload import Upload
-from cruddals_django.types.scalars.Duration import Duration
-from cruddals_django.types.scalars.Email import Email
-from cruddals_django.types.scalars.IP import IP
-from cruddals_django.types.scalars.IPv4 import IPv4
-from cruddals_django.types.scalars.PositiveInt import PositiveInt
-from cruddals_django.types.scalars.Slug import Slug
-from cruddals_django.types.scalars.URL import URL
+from graphene_django_cruddals_v1.registry.registry_global import RegistryGlobal
+from graphene_django_cruddals_v1.types.scalars.Binary import Binary
+from graphene_django_cruddals_v1.types.scalars.OrderEnum import OrderEnum
+from graphene_django_cruddals_v1.types.scalars.Upload import Upload
+from graphene_django_cruddals_v1.types.scalars.Duration import Duration
+from graphene_django_cruddals_v1.types.scalars.Email import Email
+from graphene_django_cruddals_v1.types.scalars.IP import IP
+from graphene_django_cruddals_v1.types.scalars.IPv4 import IPv4
+from graphene_django_cruddals_v1.types.scalars.PositiveInt import PositiveInt
+from graphene_django_cruddals_v1.types.scalars.Slug import Slug
+from graphene_django_cruddals_v1.types.scalars.URL import URL
 
 from django.db import models
 from django.db.models.fields import Field as DjangoField
@@ -54,7 +54,7 @@ class TypesOfInput(Enum):
 
 
 def get_filter_input_object_type(django_field:DjangoField, type_of_field, name:str):
-    from cruddals_django.utils.utils import build_class
+    from graphene_django_cruddals_v1.utils.utils import build_class
     input_fields = OrderedDict()
     lookups = django_field.get_lookups()
     for name_lookup, lookup in lookups.items():
@@ -332,7 +332,7 @@ def convert_field_to_url(field, registry:RegistryGlobal=None, type_input:TypesOf
 def convert_onetoone_field_to_djangomodel(field, registry:RegistryGlobal=None, type_input:TypesOfInput="for_mutate"):
     model = field.related_model
     if type_input == TypesOfInput.FOR_MUTATE.value:
-        from cruddals_django.utils.utils import converter_pk_field
+        from graphene_django_cruddals_v1.utils.utils import converter_pk_field
         pk_field = model._meta.pk
         converted_pk_field = converter_pk_field(pk_field, registry, type_input)
         if not converted_pk_field:
@@ -346,10 +346,10 @@ def convert_onetoone_field_to_djangomodel(field, registry:RegistryGlobal=None, t
             if registries_for_model is None:
                 return
             if type_input == TypesOfInput.FOR_SEARCH.value:
-                from cruddals_django.utils.utils import convert_model_to_filter_input_object_type
+                from graphene_django_cruddals_v1.utils.utils import convert_model_to_filter_input_object_type
                 return graphene.InputField( convert_model_to_filter_input_object_type( model ) )
             elif type_input == TypesOfInput.FOR_ORDER_BY.value:
-                from cruddals_django.utils.utils import convert_model_to_order_by_input_object_type
+                from graphene_django_cruddals_v1.utils.utils import convert_model_to_order_by_input_object_type
                 return graphene.InputField( convert_model_to_order_by_input_object_type( model ) )
         return Dynamic(dynamic_type)
 
@@ -360,7 +360,7 @@ def convert_onetoone_field_to_djangomodel(field, registry:RegistryGlobal=None, t
 def convert_field_to_list_or_connection(field, registry:RegistryGlobal=None, type_input:TypesOfInput="for_mutate"):
     model = field.related_model
     if type_input == TypesOfInput.FOR_MUTATE.value:
-        from cruddals_django.utils.utils import converter_pk_field
+        from graphene_django_cruddals_v1.utils.utils import converter_pk_field
         pk_field = model._meta.pk
         converted_pk_field = converter_pk_field(pk_field, registry, type_input)
         if not converted_pk_field:
@@ -375,7 +375,7 @@ def convert_field_to_list_or_connection(field, registry:RegistryGlobal=None, typ
             if registries_for_model is None:
                 return
             if type_input == TypesOfInput.FOR_SEARCH.value:
-                from cruddals_django.utils.utils import convert_model_to_filter_input_object_type
+                from graphene_django_cruddals_v1.utils.utils import convert_model_to_filter_input_object_type
                 return graphene.InputField( convert_model_to_filter_input_object_type( model ) )    
         return Dynamic(dynamic_type)
 
@@ -385,7 +385,7 @@ def convert_field_to_list_or_connection(field, registry:RegistryGlobal=None, typ
 def convert_field_to_djangomodel(field, registry:RegistryGlobal=None, type_input:TypesOfInput="for_mutate"):
     model = field.related_model
     if type_input == TypesOfInput.FOR_MUTATE.value:
-        from cruddals_django.utils.utils import converter_pk_field
+        from graphene_django_cruddals_v1.utils.utils import converter_pk_field
         pk_field = model._meta.pk
         converted_pk_field = converter_pk_field(pk_field, registry, type_input)
         if not converted_pk_field:
@@ -402,10 +402,10 @@ def convert_field_to_djangomodel(field, registry:RegistryGlobal=None, type_input
             if isinstance(field, models.OneToOneField) and issubclass( field.model, field.related_model ):
                 return
             if type_input == TypesOfInput.FOR_SEARCH.value:
-                from cruddals_django.utils.utils import convert_model_to_filter_input_object_type
+                from graphene_django_cruddals_v1.utils.utils import convert_model_to_filter_input_object_type
                 return graphene.InputField( convert_model_to_filter_input_object_type( model ) )
             elif type_input == TypesOfInput.FOR_ORDER_BY.value:
-                from cruddals_django.utils.utils import convert_model_to_order_by_input_object_type
+                from graphene_django_cruddals_v1.utils.utils import convert_model_to_order_by_input_object_type
                 return graphene.InputField( convert_model_to_order_by_input_object_type( model ) )
         return Dynamic(dynamic_type)
 

@@ -9,8 +9,8 @@ import graphene
 
 from graphql.pyutils import register_description
 
-from cruddals_django.registry.registry_global import RegistryGlobal
-from cruddals_django.helpers.helpers import TypesMutation
+from graphene_django_cruddals_v1.registry.registry_global import RegistryGlobal
+from graphene_django_cruddals_v1.helpers.helpers import TypesMutation
 
 
 
@@ -44,7 +44,7 @@ def convert_field_to_list(field:DjangoField, registry:RegistryGlobal=None, type_
         
         else: # update, create_update
             
-            from cruddals_django.utils.utils import build_class
+            from graphene_django_cruddals_v1.utils.utils import build_class
             model_where_input_object_type = None
             if registries_for_model is not None and "input_object_type_for_filter" in registries_for_model:
                 model_where_input_object_type = registries_for_model["input_object_type_for_filter"]

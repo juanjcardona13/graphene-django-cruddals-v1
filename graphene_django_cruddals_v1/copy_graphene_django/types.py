@@ -7,8 +7,8 @@ from django.db.models import Model
 from graphene.relay import Connection, Node
 from graphene.types.objecttype import ObjectType, ObjectTypeOptions
 from graphene.types.utils import yank_fields_from_attrs
-from cruddals_django.converter.utils import FieldPurposeConvert, convert_django_field_with_choices
-from cruddals_django.registry.registry_global import RegistryGlobal, get_global_registry
+from graphene_django_cruddals_v1.converter.utils import FieldPurposeConvert, convert_django_field_with_choices
+from graphene_django_cruddals_v1.registry.registry_global import RegistryGlobal, get_global_registry
 from .settings import graphene_settings
 from django.db.models import (
     ManyToOneRel,
@@ -21,7 +21,7 @@ ALL_FIELDS = "__all__"
 
 
 def construct_fields( model, registry, only_fields, exclude_fields, convert_choices_to_enum ):
-    from cruddals_django.utils.utils import get_model_fields
+    from graphene_django_cruddals_v1.utils.utils import get_model_fields
     _model_fields = get_model_fields(model)
 
     fields = OrderedDict()
@@ -145,7 +145,7 @@ class DjangoObjectType(ObjectType):
         _meta=None,
         **options
     ):
-        from cruddals_django.utils.utils import is_valid_django_model
+        from graphene_django_cruddals_v1.utils.utils import is_valid_django_model
 
         assert is_valid_django_model(model), (
             'You need to pass a valid Django Model in {}.Meta, received "{}".'
@@ -255,7 +255,7 @@ class DjangoObjectType(ObjectType):
 
     @classmethod
     def is_type_of(cls, root, info):
-        from cruddals_django.utils.utils import is_valid_django_model
+        from graphene_django_cruddals_v1.utils.utils import is_valid_django_model
         if isinstance(root, cls):
             return True
         if not is_valid_django_model(root.__class__):
@@ -287,7 +287,7 @@ class ErrorType(ObjectType):
 
     @classmethod
     def from_errors(cls, errors):
-        from cruddals_django.utils.utils import camelize
+        from graphene_django_cruddals_v1.utils.utils import camelize
         data = camelize(errors) if graphene_settings.CAMELCASE_ERRORS else errors
         return [cls(field=key, messages=value) for key, value in data.items()]
 

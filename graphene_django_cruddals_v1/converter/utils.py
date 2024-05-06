@@ -4,7 +4,7 @@ from collections import OrderedDict
 
 import graphene
 
-from cruddals_django.registry.registry_global import RegistryGlobal
+from graphene_django_cruddals_v1.registry.registry_global import RegistryGlobal
 
 from ..copy_graphene_django.settings import graphene_settings
 
@@ -43,7 +43,7 @@ def get_django_field_description(field):
 
 
 def convert_choice_name(name):
-    from cruddals_django.utils.utils import to_const
+    from graphene_django_cruddals_v1.utils.utils import to_const
 
     name = to_const(force_str(name))
     try:
@@ -128,8 +128,8 @@ def convert_django_field_with_choices( field, purpose:FieldPurposeConvert=FieldP
 
         converted = EnumCls( description=get_django_field_description(field), required=required ).mount_as(BlankValueField)
     else:
-        from cruddals_django.converter.converter_input import convert_django_field_to_input
-        from cruddals_django.converter.converter_output import convert_django_field
+        from graphene_django_cruddals_v1.converter.converter_input import convert_django_field_to_input
+        from graphene_django_cruddals_v1.converter.converter_output import convert_django_field
         
         if purpose == FieldPurposeConvert.INPUT.value:
             converted = convert_django_field_to_input(field, registry, type_input)

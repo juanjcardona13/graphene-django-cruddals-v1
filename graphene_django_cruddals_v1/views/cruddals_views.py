@@ -2,7 +2,7 @@
 
 import graphene
 
-from cruddals_django.views.file_upload_graphql_view import FileUploadGraphQLView
+from graphene_django_cruddals_v1.views.file_upload_graphql_view import FileUploadGraphQLView
 
 from ..registry.registry_schema import get_global_registry_schema, set_global_registry_schema
 from ..client.build_for_client import build_files_for_client_schema_cruddals
@@ -70,7 +70,7 @@ class CRUDDALSView:
                     
                     apps = cruddals_settings.APPS
                     
-                    default_exclude_apps = ['graphene_django', 'messages', 'staticfiles', 'corsheaders', 'cruddals_django'] + cruddals_settings.EXCLUDE_APPS
+                    default_exclude_apps = ['graphene_django', 'messages', 'staticfiles', 'corsheaders', 'graphene_django_cruddals_v1'] + cruddals_settings.EXCLUDE_APPS
                     
                     interfaces_for_project = cruddals_settings.INTERFACES
                     

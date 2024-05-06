@@ -16,8 +16,8 @@ from graphql.execution import ExecutionResult
 from graphene import Schema
 from graphql.execution.middleware import MiddlewareManager
 
-from cruddals_django.copy_graphene_django.constants import MUTATION_ERRORS_FLAG
-from cruddals_django.utils.utils import set_rollback
+from graphene_django_cruddals_v1.copy_graphene_django.constants import MUTATION_ERRORS_FLAG
+from graphene_django_cruddals_v1.utils.utils import set_rollback
 
 from ..copy_graphene_django.settings import graphene_settings
 
